@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Topper Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #222;
+        }
+    </style>
+    <script>
+        const students = [
+            { name: "Jeevan", marks: 99, department: "IT", rollNo: "ITL186", dob: "2004-11-22" },
+            { name: "Deepak", marks: 99, department: "CSE", rollNo: "CSL185", dob: "2005-09-08" },
+            { name: "Mithun", marks: 100, department: "AIML", rollNo: "ALL187", dob: "2005-02-23" }
+        ];
+
+        function getTopper() {
+            const topper = students.reduce((prev, current) => (prev.marks > current.marks) ? prev : current);
+            document.getElementById("result").innerHTML = `
+                <strong>Topper (All Departments)</strong><br>
+                Name: ${topper.name}<br>
+                Marks: ${topper.marks}<br>
+                Roll No: ${topper.rollNo}<br>
+                DOB: ${topper.dob}
+            `;
+        }
+
+        function getITTopper() {
+            const itStudents = students.filter(s => s.department === "IT");
+            if (itStudents.length === 0) {
+                document.getElementById("result").innerHTML = "No students found in IT department.";
+                return;
+            }
+            const topper = itStudents.reduce((prev, current) => (prev.marks > current.marks) ? prev : current);
+            document.getElementById("result").innerHTML = `
+                <strong>IT Department Topper</strong><br>
+                Name: ${topper.name}<br>
+                Marks: ${topper.marks}<br>
+                Roll No: ${topper.rollNo}<br>
+                DOB: ${topper.dob}
+            `;
+        }
+    </script>
+</head>
+<body>
+    <h1>Student Topper Details</h1>
+    <button onclick="getTopper()">Get Overall Topper</button>
+    <button onclick="getITTopper()">Get IT Topper</button>
+    <p id="result"></p>
+</body>
+</html>
